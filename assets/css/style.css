@@ -1,0 +1,173 @@
+@charset "utf-8";
+
+/* CSS Resets */
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+* {
+    margin: 0;
+}
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+}
+
+img,
+picture,
+video,
+canvas,
+svg {
+    display: block;
+    max-width: 100%;
+}
+
+input,
+button,
+textarea,
+select {
+    font: inherit;
+}
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    overflow-wrap: break-word;
+}
+
+/* Styles */
+
+:root {
+    --main-font: 'Roboto', sans-serif;
+
+    --primary-color: #1992d4;
+    --secondary-color: #f0b429;
+    --off-white: #e2e8f0;
+    --text-grey: #636363;
+    --text-dark: #404040;
+    --text-white: #f5f5f5;
+}
+
+html {
+    font-family: var(--main-font);
+}
+
+body {
+    background-color: var(--text-grey);
+}
+
+.app {
+    height: 100%;
+    padding-block: 16px;
+}
+
+.app h1 {
+    text-align: center;
+}
+
+.book-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+    grid-auto-rows: auto;
+    gap: 24px;
+}
+
+.book-list__item {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    height: 375px;
+    max-width: 300px;
+    background: #fff;
+    overflow: hidden;
+}
+
+.book-list__item-cover {
+    height: 200px;
+    width: 100%;
+    object-fit: cover;
+    border-bottom-right-radius: 100% 50%;
+}
+
+.book-list__item-info {
+    padding: 8px 32px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    justify-content: space-between;
+    text-align: center;
+    line-height: 1.2;
+}
+
+.book-list__item-info h3 {
+    color: var(--text-dark);
+    text-transform: uppercase;
+    font-size: 1rem;
+}
+
+.book-list__item-info p {
+    color: var(--text-grey);
+    font-size: .75rem;
+}
+
+.book-list__item-info button {
+    border: none;
+    border-radius: 100vmax;
+    color: #fff;
+    font-size: .9rem;
+    font-weight: 300;
+    padding: 5px 30px;
+    margin-inline: 24px;
+    text-transform: uppercase;
+    background: linear-gradient(
+        75deg,
+        #3f2b96,
+        #a8c0ff
+    );
+}
+
+button {
+    cursor: pointer;
+}
+
+.card {
+    border-radius: 20px;
+    border: 5px solid #fff;
+}
+
+.multi-line-ellipsis {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    overflow: hidden;
+}
+
+.visually-hidden {
+    position: absolute;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    width: 1px;
+    margin: -1px;
+    padding: 0;
+    border: 0;
+}
+
+.max-width {
+    max-width: 75rem;
+    margin-inline: auto;
+    padding-inline: 16px;
+}
