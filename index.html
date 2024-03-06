@@ -8,32 +8,68 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="assets/css/style.css">
+    <script src="assets/scripts/books.js" defer></script>
+    <script src="assets/scripts/ui.js" defer></script>
     <script src="assets/scripts/app.js" defer></script>
 </head>
 <body>
 
-    <main class="app max-width">
+    <template id="book-card">
+        <article class="book-list__item card">
+            <div class="book-list__item-cover">
+                <img
+                    src=""
+                    alt=""
+                >
+            </div>
+            <div class="book-list__item-info">
+                <h3></h3>
+                <p class="multi-line-ellipsis"></p>
+                <button class="text-shadow"></button>
+            </div>
+        </article>
+    </template>
+
+    <div class="app max-width">
 
         <h1>JavaScript Library</h1>
 
-        <section class="book-list">
+        <menu class="library-sections">
+            <li>
+                <button>Explore Books</button>
+            </li>
+            <li>
+                <button>My Books</button>
+            </li>
+        </menu>
 
-            <article class="book-list__item card">
-                <img
-                    class="book-list__item-cover"
-                    src="https://filmcellsltd.com/ProductImages/1000x1000/MP17240255.jpg"
-                    alt=""
-                >
-                <div class="book-list__item-info">
-                    <h3>Harry Potter and the Goblet of Fiyah</h3>
-                    <p class="multi-line-ellipsis">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illo asperiores ipsum harum optio, ullam voluptas!</p>
-                    <button>View</button>
-                </div>
-            </article>
+        <main>
 
-        </section>
+            <form id="search-form">
+                <input name="search-term" type="search" placeholder="Search...">
+            </form>
 
-    </main>
+            <section class="book-list">
+
+                <!-- <article class="book-list__item card">
+                    <div class="book-list__item-cover">
+                        <img
+                            src="https://filmcellsltd.com/ProductImages/1000x1000/MP17240255.jpg"
+                            alt=""
+                        >
+                    </div>
+                    <div class="book-list__item-info">
+                        <h3>Harry Potter and the Goblet of Fiyah</h3>
+                        <p class="multi-line-ellipsis">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illo asperiores ipsum harum optio, ullam voluptas!</p>
+                        <button class="text-shadow">View</button>
+                    </div>
+                </article> -->
+    
+            </section>
+
+        </main>
+
+    </div>
 
 </body>
 </html>
