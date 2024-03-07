@@ -53,8 +53,9 @@ h6 {
 :root {
     --main-font: 'Roboto', sans-serif;
 
-    --primary-color: #1992d4;
-    --secondary-color: #f0b429;
+    --primary-color: #F0DB4F;
+    --off-yellow: #fdbb03;
+    --secondary-color: #323330;
     --off-white: #e2e8f0;
     --text-grey: #636363;
     --text-dark: #404040;
@@ -70,17 +71,36 @@ body {
 }
 
 .app {
-    height: 100%;
+    min-height: 100%;
     padding-block: 16px;
 }
 
-.app h1 {
+.app header {
+    background-color: var(--text-grey);
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}
+
+.app header h1 {
+    background: -webkit-linear-gradient(
+        right,
+        var(--primary-color) 20%,
+        var(--off-yellow) 40%,
+        var(--primary-color) 60%,
+        var(--off-yellow) 80%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
     text-align: center;
+    background-size: 500% auto;
+    animation: textShine 5s ease-in-out infinite alternate;
 }
 
 .library-sections {
     list-style-type: none;
-    padding: 32px;
+    padding: 16px 32px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -91,11 +111,23 @@ body {
     border: none;
 }
 
+#search-form {
+    padding-block: 16px;
+}
+
+#search-form input[type="search"] {
+    display: block;
+    margin-inline: auto;
+    max-width: 40rem;
+    width: 100%;
+}
+
 .book-list {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
     grid-auto-rows: auto;
     gap: 24px;
+    padding-block: 16px;
 }
 
 .book-list__item {
@@ -146,15 +178,16 @@ body {
 .book-list__item-info button {
     border: none;
     border-radius: 100vmax;
-    color: #fff;
+    color: var(--secondary-color);
     font-size: .9rem;
+    font-weight: 300;
     padding: 5px 30px;
     margin-inline: 24px;
     text-transform: uppercase;
     background: linear-gradient(
         75deg,
-        #d1dd24,
-        #feffa8
+        var(--primary-color),
+        var(--off-yellow)
     );
 }
 
@@ -205,4 +238,13 @@ button.danger {
         0px 1px 0px rgba(0, 0, 0, 0.5),
         -1px 0px 0px rgba(0, 0, 0, 0.5),
         0px -1px 0px rgba(0, 0, 0, 0.5);
+}
+
+@keyframes textShine {
+    from {
+        background-position: 0% 50%;
+    }
+    to {
+        background-position: 50% 100%;
+    }
 }

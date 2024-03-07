@@ -32,26 +32,28 @@
 
     <div class="app max-width">
 
-        <h1>JavaScript Library</h1>
+        <header>
+            <h1>JavaScript Library</h1>
 
-        <menu class="library-sections">
-            <li>
-                <button>Explore Books</button>
-            </li>
-            <li>
-                <button>My Books</button>
-            </li>
-        </menu>
-
-        <main>
+            <menu class="library-sections">
+                <li>
+                    <button>Explore Books</button>
+                </li>
+                <li>
+                    <button>My Books</button>
+                </li>
+            </menu>
 
             <form id="search-form">
                 <input name="search-term" type="search" placeholder="Search...">
             </form>
+        </header>
+
+        <main>
 
             <section class="book-list">
 
-                <!-- <article class="book-list__item card">
+                <article class="book-list__item card">
                     <div class="book-list__item-cover">
                         <img
                             src="https://filmcellsltd.com/ProductImages/1000x1000/MP17240255.jpg"
@@ -61,9 +63,18 @@
                     <div class="book-list__item-info">
                         <h3>Harry Potter and the Goblet of Fiyah</h3>
                         <p class="multi-line-ellipsis">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illo asperiores ipsum harum optio, ullam voluptas!</p>
-                        <button class="text-shadow">View</button>
+                        <button>View</button>
                     </div>
-                </article> -->
+                </article>
+
+                <script>
+                    const book = document.querySelector('.book-list__item.card')
+                    const qty = 20;
+                    for(let i = 0;i < qty;i++) {
+                        const copy = book.cloneNode(true);
+                        book.parentElement.appendChild(copy)
+                    }
+                </script>
     
             </section>
 
