@@ -2,7 +2,6 @@ var BookService = (function() {
     var myLibrary = [];
     
     var searchURL = 'https://openlibrary.org/search.json';
-    var authorImaageURL = 'https://covers.openlibrary.org/a/olid/' // {author_key (array)}-M.jpg
     var bookCoverURL = 'https://covers.openlibrary.org/b/olid/'
 
     var fields = [
@@ -12,7 +11,6 @@ var BookService = (function() {
         'number_of_pages_median',
         'first_sentence',
         'ratings_average',
-        'author_key',
         'cover_edition_key'
     ].join(',');
 
@@ -25,7 +23,7 @@ var BookService = (function() {
 
     // ==========================
 
-    function Book(id, title, author, pages, firstSentence, rating, coverImage, authorImage, read = false) {
+    function Book(id, title, author, pages, firstSentence, rating, coverImage,  read = false) {
         this.id = id;
         this.title = title;
         this.author = author;
@@ -33,12 +31,11 @@ var BookService = (function() {
         this.firstSentence = firstSentence;
         this.rating = rating;
         this.coverImage = coverImage;
-        this.authorImage = authorImage;
         this.read = read;
     }
 
     function createBook(json) {
-        var { author_name, author_key, first_sentence, cover_edition_key } = json;
+        var { author_name, first_sentence, cover_edition_key } = json;
         return new Book(
             json.key,
             json.title,
@@ -47,7 +44,6 @@ var BookService = (function() {
             first_sentence ? first_sentence[0] : null,
             json.ratings_average,
             `${bookCoverURL}${cover_edition_key}-M.jpg`,
-            `${authorImaageURL}${author_key}-M.jpg`,
         );
     }
 
