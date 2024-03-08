@@ -16,7 +16,9 @@ var BookService = (function() {
 
     var publicAPI = {
         myLibrary,
-        searchBooks
+        searchBooks,
+        addBookToLibrary,
+        removeBookFromLibrary
     }
 
     return publicAPI;
@@ -32,6 +34,19 @@ var BookService = (function() {
         this.rating = rating;
         this.coverImage = coverImage;
         this.read = read;
+    }
+
+    function addBookToLibrary(book) {
+        if(!myLibrary.some(b => b.id === book.id)) {
+            myLibrary.push(book);
+        }
+    }
+
+    function removeBookFromLibrary(bookId) {
+        var bookIndex = myLibrary.findIndex(b => b.id === bookId);
+        if(bookIndex !== -1) {
+            myLibrary.splice(bookIndex, 1);
+        }
     }
 
     function createBook(json) {

@@ -1,16 +1,18 @@
 var UI = (function() {
 
-    var bookCardTemplateID = 'book-card';
+    var bookCardTemplateID = 'book-card-template';
+    var bookDetailsTemplateID = 'book-details-template';
 
     var publicAPI = {
-        createBookCard
+        createBookCard,
+        renderBookDetails
     }
 
     return publicAPI;
 
     // ==========================
 
-    function createBookCard(book) {
+    function createBookCard(book, onBookViewFn) {
         var template = document.getElementById(bookCardTemplateID).content.cloneNode(true);
         var coverImage = template.querySelector('img')
         coverImage.src = book.coverImage
@@ -20,7 +22,28 @@ var UI = (function() {
         info.querySelector('p').textContent = book.firstSentence;
         var button = info.querySelector('button');
         button.textContent = 'View'
+        button.addEventListener('click', onBookViewFn);
         return template;
+    }
+
+    function renderBookDetails(targetElement, book, onBookAddFn) {
+        var template = document.getElementById(bookDetailsTemplateID).content.cloneNode(true);
+        var coverImage = template.querySelector('img');
+        coverImage.src = book.coverImage;
+        coverImage.alt = `Cover for book: ${book.title}`;
+        var title = template.querySelector('.title');
+        title.textContent = book.title;
+        var description = template.querySelector('.description');
+        description.textContent = book.firstSentence;
+        template.querySelector('.author').textContent = book.author;
+        template.querySelector('.pages').textContent = book.pages;
+        template.querySelector('.rating').textContent = book.rating;
+        var actions = template.querySelector('.actions');
+        var addButton = actions.querySelector('button.warning');
+        addButton.textContent = 'Add to your books';
+        addButton.addEventListener('click', onBookAddFn);
+        actions.querySelector('button.danger').remove();
+        targetElement.appendChild(template);
     }
 
 })()

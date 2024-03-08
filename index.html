@@ -10,6 +10,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap"
         rel="stylesheet" />
     <link rel="stylesheet" href="assets/css/style.css">
+    <script src="assets/scripts/elements.js" defer></script>
     <script src="assets/scripts/books.js" defer></script>
     <script src="assets/scripts/ui.js" defer></script>
     <script src="assets/scripts/app.js" defer></script>
@@ -17,7 +18,7 @@
 
 <body>
 
-    <template id="book-card">
+    <template id="book-card-template">
         <article class="book-list__item card">
             <div class="book-list__item-cover">
                 <img src="" alt="">
@@ -30,30 +31,57 @@
         </article>
     </template>
 
-    <div class="app max-width">
-
-        <header>
-            <h1 class="animated-header">JavaScript Library</h1>
-
-            <menu class="library-sections">
+    <template id="book-details-template">
+        <div class="book-details__image-container">
+            <img src="" alt="">
+        </div>
+        <div class="book-details__info">
+            <h3 class="animated-header title"></h3>
+            <p class="description"></p>
+            <ul>
                 <li>
-                    <button class="warning">Explore Books</button>
+                    <strong>Author</strong>: <span class="author">J.K. Rowling</span>
                 </li>
                 <li>
-                    <button class="warning">My Books</button>
+                    <strong>Pages</strong>: <span class="pages">404</span>
                 </li>
-            </menu>
+                <li>
+                    <strong>Rating</strong>: <span class="rating">4.28</span>
+                </li>
+            </ul>
+            <div class="actions">
+                <button class="warning"></button>
+                <button class="danger"></button>
+            </div>
+        </div>
+    </template>
 
-            <form id="search-form">
-                <input name="search-term" type="search" placeholder="Search...">
-            </form>
+    <div class="app">
+
+        <header class="sticky">
+            <div class="max-width">
+                <h1 class="animated-header">JavaScript Library</h1>
+    
+                <menu class="library-sections">
+                    <li>
+                        <button class="warning text-shadow">Explore Books</button>
+                    </li>
+                    <li>
+                        <button class="warning text-shadow">My Books</button>
+                    </li>
+                </menu>
+    
+                <form id="search-form">
+                    <input name="search-term" type="search" placeholder="Search...">
+                </form>
+            </div>
         </header>
 
-        <main>
+        <main class="max-width">
 
             <section class="book-list">
 
-                <article class="book-list__item card">
+                <!-- <article class="book-list__item card">
                     <div class="book-list__item-cover">
                         <img src="https://filmcellsltd.com/ProductImages/1000x1000/MP17240255.jpg" alt="">
                     </div>
@@ -61,64 +89,32 @@
                         <h3>Harry Potter and the Goblet of Fiyah</h3>
                         <p class="multi-line-ellipsis">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illo
                             asperiores ipsum harum optio, ullam voluptas!</p>
-                        <button>View</button>
+                        <button class="text-shadow">View</button>
                     </div>
-                </article>
+                </article> -->
 
-                <script>
-                    const book = document.querySelector('.book-list__item.card')
-                    const qty = 20;
-                    for (let i = 0; i < qty; i++) {
-                        const copy = book.cloneNode(true);
-                        book.parentElement.appendChild(copy)
-                    }
-                </script>
+                <p class="message">Search for a book.</p>
 
             </section>
 
         </main>
-
     </div>
 
     <div id="modal-root">
         <div class="backdrop"></div>
-        <dialog open class="modal card">
+        <dialog class="modal card">
 
             <button id="close-button">
-                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none"  xmlns="http://www.w3.org/2000/svg">
                     <path
                         d="M20.746 3.329a1 1 0 0 0-1.415 0l-7.294 7.294-7.294-7.294a1 1 0 1 0-1.414 1.414l7.294 7.294-7.294 7.294a1 1 0 0 0 1.414 1.415l7.294-7.295 7.294 7.295a1 1 0 0 0 1.415-1.415l-7.295-7.294 7.295-7.294a1 1 0 0 0 0-1.414Z" />
                 </svg>
+                <div class="visually-hidden">
+                    Close the modal
+                </div>
             </button>
 
-            <div class="book-details">
-
-                <div class="book-details__image-container">
-                    <img src="https://filmcellsltd.com/ProductImages/1000x1000/MP17240255.jpg" alt="">
-                </div>
-
-                <div class="book-details__info">
-                    <h3 class="animated-header">Harry Potter and the Goblet of Fiyah</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illo asperiores ipsum harum optio,
-                        ullam voluptas!</p>
-                    <ul>
-                        <li>
-                            <strong>Author</strong>: J.K. Rowling
-                        </li>
-                        <li>
-                            <strong>Pages</strong>: 404
-                        </li>
-                        <li>
-                            <strong>Rating</strong>: 4.28
-                        </li>
-                    </ul>
-                    <div class="actions">
-                        <button class="warning">Mark as read</button>
-                        <button class="danger">Remove</button>
-                    </div>
-                </div>
-
-            </div>
+            <div class="book-details"></div>
 
         </dialog>
     </div>
