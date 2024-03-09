@@ -13,6 +13,12 @@ var UI = (function() {
 
     // ==========================
 
+    function removeWithDelay(element, delay = 1000) {
+        window.setTimeout(function removeElement() {
+            element.parentElement.removeChild(element);
+        }, delay)
+    }
+
     function lazyLoadImage(imageElement, imageSource) {
         var image = new Image();
 
@@ -22,12 +28,13 @@ var UI = (function() {
         image.onload = function() {
             imageElement.src = this.src;
             imageElement.parentElement.classList.add('loaded');
+            removeWithDelay(imageElement.parentElement.querySelector('.spinner'));
         }
 
         image.onerror = function() {
-            console.log('Image load error')
             imageElement.src = 'assets/images/not-found.jpg';
             imageElement.parentElement.classList.add('loaded');
+            removeWithDelay(imageElement.parentElement.querySelector('.spinner'));
         }
 
         image.src = imageSource;
@@ -36,10 +43,7 @@ var UI = (function() {
     function createBookCard(book, onBookViewFn) {
         var template = document.getElementById(bookCardTemplateID).content.cloneNode(true);
         var coverImage = template.querySelector('img')
-
-        // coverImage.src = book.coverImage
         lazyLoadImage(coverImage, book.coverImage);
-
         coverImage.alt = `Cover for book: ${book.title}`;
         var info = template.querySelector('.book-list__item-info');
         info.querySelector('h3').textContent = book.title ?? 'Mystery book';

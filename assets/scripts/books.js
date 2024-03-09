@@ -56,8 +56,8 @@ var BookService = (function() {
             json.title ?? 'Mystery book',
             author_name ? author_name[0] : 'Unknown author',
             json.number_of_pages_median ?? 'Pages info not provided',
-            first_sentence ? first_sentence[0] : 'A description/first sentence was not provided',
-            json.ratings_average ?? 'Unknown rating',
+            first_sentence ? first_sentence[0] : 'A description/first sentence was not provided.',
+            json.ratings_average != undefined ? json.ratings_average.toFixed(1) : 'Unknown rating',
             cover_edition_key != undefined ? `${bookCoverURL}${cover_edition_key}-M.jpg` : 'assets/images/not-found.jpg',
         );
     }
