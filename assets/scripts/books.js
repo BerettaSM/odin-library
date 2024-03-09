@@ -53,12 +53,12 @@ var BookService = (function() {
         var { author_name, first_sentence, cover_edition_key } = json;
         return new Book(
             json.key,
-            json.title,
-            author_name ? author_name[0] : 'Unknown',
-            json.number_of_pages_median,
-            first_sentence ? first_sentence[0] : null,
-            json.ratings_average,
-            `${bookCoverURL}${cover_edition_key}-M.jpg`,
+            json.title ?? 'Mystery book',
+            author_name ? author_name[0] : 'Unknown author',
+            json.number_of_pages_median ?? 'Pages info not provided',
+            first_sentence ? first_sentence[0] : 'A description/first sentence was not provided',
+            json.ratings_average ?? 'Unknown rating',
+            cover_edition_key != undefined ? `${bookCoverURL}${cover_edition_key}-M.jpg` : 'assets/images/not-found.jpg',
         );
     }
 

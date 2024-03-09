@@ -2,6 +2,7 @@ var UI = (function() {
 
     var bookCardTemplateID = 'book-card-template';
     var bookDetailsTemplateID = 'book-details-template';
+    var spinnerTemplateID = 'spinner-template';
 
     var publicAPI = {
         createBookCard,
@@ -12,16 +13,39 @@ var UI = (function() {
 
     // ==========================
 
+    function lazyLoadImage(imageElement, imageSource) {
+        var image = new Image();
+
+        var spinner = document.getElementById(spinnerTemplateID).content.cloneNode(true);
+        imageElement.parentElement.appendChild(spinner);
+        
+        image.onload = function() {
+            imageElement.src = this.src;
+            imageElement.parentElement.classList.add('loaded');
+        }
+
+        image.onerror = function() {
+            console.log('Image load error')
+            imageElement.src = 'assets/images/not-found.jpg';
+            imageElement.parentElement.classList.add('loaded');
+        }
+
+        image.src = imageSource;
+    }
+
     function createBookCard(book, onBookViewFn) {
         var template = document.getElementById(bookCardTemplateID).content.cloneNode(true);
         var coverImage = template.querySelector('img')
-        coverImage.src = book.coverImage
+
+        // coverImage.src = book.coverImage
+        lazyLoadImage(coverImage, book.coverImage);
+
         coverImage.alt = `Cover for book: ${book.title}`;
         var info = template.querySelector('.book-list__item-info');
-        info.querySelector('h3').textContent = book.title;
+        info.querySelector('h3').textContent = book.title ?? 'Mystery book';
         info.querySelector('p').textContent = book.firstSentence;
         var button = info.querySelector('button');
-        button.textContent = 'View'
+        button.textContent = 'View';
         button.addEventListener('click', onBookViewFn);
         return template;
     }
