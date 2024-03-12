@@ -1,5 +1,5 @@
 var BookService = (function() {
-    var myLibrary = [];
+    var myLibrary = loadBooksFromLocalStorage();
     
     var searchURL = 'https://openlibrary.org/search.json';
     var bookCoverURL = 'https://covers.openlibrary.org/b/olid/'
@@ -22,7 +22,7 @@ var BookService = (function() {
     }
 
     Book.prototype.toggleRead = function() {
-        return (this.read = !this.read);
+        return (this.read = !this.read)
     }
 
     return publicAPI;
@@ -43,6 +43,7 @@ var BookService = (function() {
     function addBookToLibrary(book) {
         if(!myLibrary.some(b => b.id === book.id)) {
             myLibrary.push(book);
+            writeToStorage('my-library', myLibrary);
         }
     }
 
@@ -50,6 +51,7 @@ var BookService = (function() {
         var bookIndex = myLibrary.findIndex(b => b.id === bookId);
         if(bookIndex !== -1) {
             myLibrary.splice(bookIndex, 1);
+            writeToStorage('my-library', myLibrary);
         }
     }
 
@@ -64,6 +66,20 @@ var BookService = (function() {
             json.ratings_average != undefined ? json.ratings_average.toFixed(1) : 'Unknown rating',
             cover_edition_key != undefined ? `${bookCoverURL}${cover_edition_key}-M.jpg` : 'assets/images/not-found.jpg',
         );
+    }
+
+    function loadBooksFromLocalStorage() {
+        var books = readFromStorage('my-library')
+
+        console.log(books)
+
+        return books == null
+            ? []
+            : books.map(b => {
+                var book = { ...b };
+                Object.setPrototypeOf(book, Book.prototype);
+                return book;
+            });
     }
 
     async function sendRequest(url, options = {}) {

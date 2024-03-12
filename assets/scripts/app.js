@@ -26,6 +26,7 @@ searchForm.addEventListener('submit', async function onSearchBook(evt) {
 
 exploreButton.addEventListener('click', function onExploreBooksClick(evt) {
     toggleView();
+    searchInput.focus();
     booksList.innerHTML = '<p class="message">Search for a book.</p>';
 });
 
@@ -42,11 +43,12 @@ myBooksButton.addEventListener('click', function onMyBooksClick(evt) {
                     var isRead = book.toggleRead();
                     if(isRead) {
                         this.classList.add('ghost');
-                        this.textContent = 'Mark as read';
+                        this.textContent = 'Mark as unread';
                     } else {
                         this.classList.remove('ghost')
-                        this.textContent = 'Mark as unread';
+                        this.textContent = 'Mark as read';
                     }
+                    writeToStorage('my-library', myLibrary);
                 },
             },
             {
@@ -56,7 +58,7 @@ myBooksButton.addEventListener('click', function onMyBooksClick(evt) {
                     closeModal();
                     BookService.removeBookFromLibrary(book.id);
                     document.getElementById(book.id).remove();
-                    if(BookService.myLibrary.length === 0) {
+                    if(myLibrary.length === 0) {
                         booksList.innerHTML =
                             '<p class="message">You haven\'t added books yet!</p>'
                     }
