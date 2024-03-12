@@ -119,6 +119,12 @@ body {
     border: none;
 }
 
+.library-sections button:disabled {
+    background: #9b9b9b;
+    color: #c9c8c8;
+    cursor: not-allowed;
+}
+
 #search-form {
     padding-block: 16px;
 }
@@ -278,7 +284,15 @@ body {
 }
 
 .book-details__info .actions {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
     margin-block-start: auto;
+    padding-block-end: 16px;
+}
+
+.book-details__info .actions button {
+    box-shadow: var(--shadow-elevation-medium);
 }
 
 .backdrop {
@@ -346,7 +360,7 @@ button {
         color 250ms ease-in;
 }
 
-button:hover {
+button:not(:disabled):hover {
     filter: brightness(0.8);
 }
 

@@ -21,6 +21,10 @@ var BookService = (function() {
         removeBookFromLibrary
     }
 
+    Book.prototype.toggleRead = function() {
+        return (this.read = !this.read);
+    }
+
     return publicAPI;
 
     // ==========================

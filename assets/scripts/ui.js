@@ -40,9 +40,21 @@ var UI = (function() {
         image.src = imageSource;
     }
 
+    function createButton(buttonDescription, book) {
+        var { label, classes } = buttonDescription;
+        var button = document.createElement('button');
+        button.textContent = typeof label === 'function' ? label(book) : label;
+        if(typeof classes === 'function') {
+            classes = [...classes(book)];
+        } 
+        button.classList.add(...classes);
+        return button;
+    }
+
     function createBookCard(book, onBookViewFn) {
         var template = document.getElementById(bookCardTemplateID).content.cloneNode(true);
-        var coverImage = template.querySelector('img')
+        template.children[0].id = book.id;
+        var coverImage = template.querySelector('img');
         lazyLoadImage(coverImage, book.coverImage);
         coverImage.alt = `Cover for book: ${book.title}`;
         var info = template.querySelector('.book-list__item-info');
@@ -54,7 +66,7 @@ var UI = (function() {
         return template;
     }
 
-    function renderBookDetails(targetElement, book, onBookAddFn) {
+    function renderBookDetails(targetElement, book, buttonDescriptions) {
         var template = document.getElementById(bookDetailsTemplateID).content.cloneNode(true);
         var coverImage = template.querySelector('img');
         coverImage.src = book.coverImage;
@@ -67,10 +79,12 @@ var UI = (function() {
         template.querySelector('.pages').textContent = book.pages;
         template.querySelector('.rating').textContent = book.rating;
         var actions = template.querySelector('.actions');
-        var addButton = actions.querySelector('button.warning');
-        addButton.textContent = 'Add to your books';
-        addButton.addEventListener('click', onBookAddFn);
-        actions.querySelector('button.danger').remove();
+        buttonDescriptions.forEach(description => {
+            var button = createButton(description, book);
+            var { onClick } = description
+            button.addEventListener('click', onClick.bind(button, book));
+            actions.appendChild(button);
+        });
         targetElement.appendChild(template);
     }
 
