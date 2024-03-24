@@ -1,13 +1,12 @@
-var UI = (function() {
-
+var UI = (function () {
     var bookCardTemplateID = 'book-card-template';
     var bookDetailsTemplateID = 'book-details-template';
     var spinnerTemplateID = 'spinner-template';
 
     var publicAPI = {
         createBookCard,
-        renderBookDetails
-    }
+        renderBookDetails,
+    };
 
     return publicAPI;
 
@@ -16,26 +15,32 @@ var UI = (function() {
     function removeWithDelay(element, delay = 1000) {
         window.setTimeout(function removeElement() {
             element.parentElement.removeChild(element);
-        }, delay)
+        }, delay);
     }
 
     function lazyLoadImage(imageElement, imageSource) {
         var image = new Image();
 
-        var spinner = document.getElementById(spinnerTemplateID).content.cloneNode(true);
+        var spinner = document
+            .getElementById(spinnerTemplateID)
+            .content.cloneNode(true);
         imageElement.parentElement.appendChild(spinner);
-        
-        image.onload = function() {
+
+        image.onload = function () {
             imageElement.src = this.src;
             imageElement.parentElement.classList.add('loaded');
-            removeWithDelay(imageElement.parentElement.querySelector('.spinner'));
-        }
+            removeWithDelay(
+                imageElement.parentElement.querySelector('.spinner')
+            );
+        };
 
-        image.onerror = function() {
+        image.onerror = function () {
             imageElement.src = 'assets/images/not-found.jpg';
             imageElement.parentElement.classList.add('loaded');
-            removeWithDelay(imageElement.parentElement.querySelector('.spinner'));
-        }
+            removeWithDelay(
+                imageElement.parentElement.querySelector('.spinner')
+            );
+        };
 
         image.src = imageSource;
     }
@@ -44,15 +49,17 @@ var UI = (function() {
         var { label, classes } = buttonDescription;
         var button = document.createElement('button');
         button.textContent = typeof label === 'function' ? label(book) : label;
-        if(typeof classes === 'function') {
+        if (typeof classes === 'function') {
             classes = [...classes(book)];
-        } 
+        }
         button.classList.add(...classes);
         return button;
     }
 
     function createBookCard(book, onBookViewFn) {
-        var template = document.getElementById(bookCardTemplateID).content.cloneNode(true);
+        var template = document
+            .getElementById(bookCardTemplateID)
+            .content.cloneNode(true);
         template.children[0].id = book.id;
         var coverImage = template.querySelector('img');
         lazyLoadImage(coverImage, book.coverImage);
@@ -67,7 +74,9 @@ var UI = (function() {
     }
 
     function renderBookDetails(targetElement, book, buttonDescriptions) {
-        var template = document.getElementById(bookDetailsTemplateID).content.cloneNode(true);
+        var template = document
+            .getElementById(bookDetailsTemplateID)
+            .content.cloneNode(true);
         var coverImage = template.querySelector('img');
         coverImage.src = book.coverImage;
         coverImage.alt = `Cover for book: ${book.title}`;
@@ -79,13 +88,12 @@ var UI = (function() {
         template.querySelector('.pages').textContent = book.pages;
         template.querySelector('.rating').textContent = book.rating;
         var actions = template.querySelector('.actions');
-        buttonDescriptions.forEach(description => {
+        buttonDescriptions.forEach((description) => {
             var button = createButton(description, book);
-            var { onClick } = description
+            var { onClick } = description;
             button.addEventListener('click', onClick.bind(button, book));
             actions.appendChild(button);
         });
         targetElement.appendChild(template);
     }
-
-})()
+})();

@@ -37,15 +37,16 @@ myBooksButton.addEventListener('click', function onMyBooksClick(evt) {
     if (myLibrary.length > 0) {
         renderBookCards(myLibrary, [
             {
-                label: ({ read }) => read ? 'Mark as unread' : 'Mark as read',
-                classes: ({ read }) => read ? ['warning', 'ghost'] : ['warning'],
+                label: ({ read }) => (read ? 'Mark as unread' : 'Mark as read'),
+                classes: ({ read }) =>
+                    read ? ['warning', 'ghost'] : ['warning'],
                 onClick: function toggleRead(book, evt) {
                     var isRead = book.toggleRead();
-                    if(isRead) {
+                    if (isRead) {
                         this.classList.add('ghost');
                         this.textContent = 'Mark as unread';
                     } else {
-                        this.classList.remove('ghost')
+                        this.classList.remove('ghost');
                         this.textContent = 'Mark as read';
                     }
                     writeToStorage('my-library', myLibrary);
@@ -58,12 +59,12 @@ myBooksButton.addEventListener('click', function onMyBooksClick(evt) {
                     closeModal();
                     BookService.removeBookFromLibrary(book.id);
                     document.getElementById(book.id).remove();
-                    if(myLibrary.length === 0) {
+                    if (myLibrary.length === 0) {
                         booksList.innerHTML =
-                            '<p class="message">You haven\'t added books yet!</p>'
+                            '<p class="message">You haven\'t added books yet!</p>';
                     }
                 },
-            }
+            },
         ]);
     } else {
         booksList.innerHTML =
