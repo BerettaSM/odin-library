@@ -71,8 +71,6 @@ var BookService = (function() {
     function loadBooksFromLocalStorage() {
         var books = readFromStorage('my-library')
 
-        console.log(books)
-
         return books == null
             ? []
             : books.map(b => {
